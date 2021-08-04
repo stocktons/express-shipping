@@ -1,9 +1,10 @@
 "use strict";
 
 const shipItApi = require("../shipItApi");
-
 shipItApi.shipProduct = jest.fn();
+
 const request = require("supertest");
+
 const app = require("../app");
 
 describe("POST /", function () {

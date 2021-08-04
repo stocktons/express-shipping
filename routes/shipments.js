@@ -18,18 +18,17 @@ const { BadRequestError } = require("../expressError");
  */
 
 router.post("/", async function (req, res, next) {
+  console.log("SHIP PRODUCT FUNCTION", shipProduct);
   const { productId, name, addr, zip } = req.body;
   const order = { productId, name, addr, zip };
   // or const order = req.body;
   const result = jsonschema.validate(order, orderSchema);
   if (!result.valid) {
-    let errs = result.errors.map(err => err.stack);
+    let errs = result.errors.map((err) => err.stack);
     throw new BadRequestError(errs);
   }
   const shipId = await shipProduct({ productId, name, addr, zip });
   return res.json({ shipped: shipId });
 });
 
-
 module.exports = router;
-
